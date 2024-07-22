@@ -1,5 +1,6 @@
 // src/services/firebaseErrorService.ts
 import { FirebaseError } from 'firebase/app';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const getFirebaseErrorMessage = (error: FirebaseError): string => {
@@ -33,5 +34,6 @@ export const getFirebaseErrorMessage = (error: FirebaseError): string => {
 
 export const handleFirebaseError = (error: FirebaseError): string => {
   const errorMessage = getFirebaseErrorMessage(error);
+  toast.error(errorMessage);
   return errorMessage;
 };

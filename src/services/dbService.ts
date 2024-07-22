@@ -9,20 +9,79 @@ import {
   query,
   where,
   deleteDoc,
+  addDoc,
 } from 'firebase/firestore';
 import Admin from '../models/Admin';
 import Company from '../models/Company';
 import Investor from '../models/Investor';
 import User from '../models/User';
 import { UserType } from '../utils/enums';
-import Like from '../models/Like';
 import { handleFirebaseError } from './FirebaseErrorService';
 import { FirebaseError } from 'firebase/app';
+
+
+interface HasToJson {
+  toJson: () => { [key: string]: any };
+}
+
+// generic function to fetch T obj with from Json func that belong to spetsific user
+// for exampke : likes, invests...
+export const fetchForUser = async <T>(
+  collectionName: string,
+  userId: string,
+  fromJson: (json: any) => T
+): Promise<T[]> => {
+  try {
+    const q = query(
+      collection(db, collectionName),
+      where('userId', '==', userId)
+    );
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map((doc) => fromJson(doc.data()));
+  } catch (error: any) {
+    console.error(`Error fetching ${collectionName} for user from db: `, error);
+    handleFirebaseError(error as FirebaseError);
+    throw error;
+  }
+};
+
+// generic func for save T obj with toJson func to db
+//for example: like\invest
+export const saveToDb = async <T extends HasToJson>(
+  collectionName: string,
+  docId: string | null,
+  data: T
+) => {
+  try {
+    if (docId) {
+      await setDoc(doc(db, collectionName, docId), data.toJson());
+    } else {
+      await addDoc(collection(db, collectionName), data.toJson());
+    }
+    console.log(`${collectionName} saved successfully`);
+  } catch (error: any) {
+    console.error(`Error saving ${collectionName} to db: `, error);
+    handleFirebaseError(error as FirebaseError);
+    throw error;
+  }
+};
+
+// func for selete any cind of doc
+// for example: user,like,invest etc...
+export const deleteDocument = async (collectionName: string, docId: string) => {
+  try {
+    await deleteDoc(doc(db, collectionName, docId));
+    console.log(`${collectionName} document deleted successfully`);
+  } catch (error: any) {
+    console.error(`Error deleting document from ${collectionName}: `, error);
+    handleFirebaseError(error as FirebaseError);
+    throw error;
+  }
+};
 
 // user
 export const saveUserToDb = async (user: User) => {
   try {
-    console.log('SaveUserToDb');
     await setDoc(doc(db, 'users', user.uid), user.userToJSON());
     console.log('User data saved successfully');
   } catch (error) {
@@ -56,45 +115,4 @@ export const fetchUserFromDb = async (uid: string): Promise<User | null> => {
   }
 
   return null;
-};
-
-// investor likes
-export const saveLikeToDb = async (like: Like) => {
-  try {
-    await setDoc(
-      doc(db, 'likes', `${like.userId}_${like.companyId}`),
-      like.toJson()
-    );
-    console.log('Like saved successfully');
-  } catch (error: any) {
-    console.error('Error fetch user feom db: ', error);
-    handleFirebaseError(error as FirebaseError);
-    throw error;
-  }
-};
-
-export const deleteLike = async (userId: string, companyId: string) => {
-  try {
-    await deleteDoc(doc(db, 'likes', `${userId}_${companyId}`));
-    console.log('Like deleted successfully');
-  } catch (error: any) {
-    console.error('Error fetch user feom db: ', error);
-    handleFirebaseError(error as FirebaseError);
-    throw error;
-  }
-};
-
-export const fetchLikesForUser = async (userId: string): Promise<Like[]> => {
-  try {
-    const likesQuery = query(
-      collection(db, 'likes'),
-      where('userId', '==', userId)
-    );
-    const likeDocs = await getDocs(likesQuery);
-    return likeDocs.docs.map((doc) => Like.fromJson(doc.data()));
-  } catch (error: any) {
-    console.error('Error fetch user feom db: ', error);
-    handleFirebaseError(error as FirebaseError);
-    throw error;
-  }
 };

@@ -1,11 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import {
-  deleteLike,
-  fetchLikesForUser,
-  saveLikeToDb,
-} from '../services/dbService';
+
 import Like from '../models/Like';
 import { useUser } from './UserContext';
+import { deleteDocument, fetchForUser, saveToDb } from '../services/dbService';
 
 interface LikesContextType {
   likes: Like[];
@@ -27,7 +24,7 @@ export const LikesProvider: React.FC<{ children: React.ReactNode }> = ({
     if (user && user.userType === 'Investor') {
       console.log('use effect : fetchLikes');
 
-      fetchLikesForUser(user.uid).then(setLikes);
+      fetchForUser('likes', user.uid, Like.fromJson).then(setLikes);
     } else {
       console.log('use effect : set to Empty likes');
       setLikes([]);
@@ -47,15 +44,15 @@ export const LikesProvider: React.FC<{ children: React.ReactNode }> = ({
       console.log('delete like');
       newLikes.splice(likeIndex, 1);
       setLikes(newLikes);
-      await deleteLike(userId, companyId);
+      await deleteDocument('likes', `${userId}${companyId}`);
     } else {
       // Like
       console.log('new like');
-      const newLike = new Like(userId, companyId);
+      const newLike = new Like(userId + companyId, userId, companyId);
       newLikes.push(newLike);
       setLikes(newLikes);
 
-      await saveLikeToDb(newLike);
+      await saveToDb('likes', newLike.likeId, newLike);
     }
   };
 

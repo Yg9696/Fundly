@@ -19,14 +19,7 @@ export default class User {
   }
 
   userToJSON() {
-    switch (this.userType) {
-      case 'Investor':
-        return this.toJSON();
-      case 'Company':
-        return this.toJSON();
-      case 'Admin':
-        return this.toJSON();
-    }
+    return this.toJSON();
   }
 
   static fromJSON(json: any): User {

@@ -38,6 +38,7 @@ export const registerUser = async (
     password
   );
   await updateProfile(userCredential.user, { displayName });
+  
   return userCredential;
 };
 
