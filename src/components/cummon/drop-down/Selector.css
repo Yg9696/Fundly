@@ -1,11 +1,7 @@
-.investment-range-container {
+.selector-container {
   display: flex;
   align-items: center;
   width: 100%;
-}
-
-.investment-range-label {
-  margin-right: 10px;
 }
 
 .select {

@@ -1,28 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import CategorySelector from './categorySelector/CategorySelector';
+import CategorySelector from '../../cummon/list-selector/ListSelector';
 import YesNoSelector from './yes-no/YesNoSelector';
 import Investor from '../../../models/Investor';
-import { InvesmentsCategories } from '../../../utils/constant';
-import InvestmentRangeSelector from './investRange/InvestSlector';
+import {
+  countries,
+  InvesmentsCategories,
+  InvestmentRange,
+} from '../../../utils/constant';
 import { useUser } from '../../../context/UserContext';
 import { useModal } from '../../../context/popupContext';
 import { useAppStatus } from '../../../context/AppStatusContext';
 import { ClipLoader } from 'react-spinners';
 import { saveUserToDb } from '../../../services/dbService';
+import GenericSelector from '../../cummon/drop-down/Selector';
+import ListSelector from '../../cummon/list-selector/ListSelector';
 
 interface PreferencesStepProps {
   isEditing?: boolean;
 }
 
-const PreferencesStep: React.FC<PreferencesStepProps> = ({ isEditing = false }) => {
+const PreferencesStep: React.FC<PreferencesStepProps> = ({
+  isEditing = false,
+}) => {
   const { user, setUser } = useUser();
   const { closeModal } = useModal();
-  const { loading, setLoading, error, setError } = useAppStatus();
+  const { loading, setLoading, setError } = useAppStatus();
 
   const [categories, setCategories] = useState<string[]>([]);
   const [investmentRange, setInvestmentRange] = useState<string>('0-100k');
   const [preferenceCountry, setPreferenceCountry] = useState<string>('Israel');
-  const [investInPublicCompanies, setInvestInPublicCompanies] = useState<boolean>(false);
+  const [investInPublicCompanies, setInvestInPublicCompanies] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (isEditing && user?.userType === 'Investor') {
@@ -30,7 +38,9 @@ const PreferencesStep: React.FC<PreferencesStepProps> = ({ isEditing = false }) 
       setCategories(investor.preferences.categories || []);
       setInvestmentRange(investor.preferences.investmentRange || '0-100k');
       setPreferenceCountry(investor.preferences.preferenceCountry || 'Israel');
-      setInvestInPublicCompanies(investor.preferences.investInPublicCompanies || false);
+      setInvestInPublicCompanies(
+        investor.preferences.investInPublicCompanies || false
+      );
     }
   }, [isEditing, user]);
 
@@ -60,28 +70,35 @@ const PreferencesStep: React.FC<PreferencesStepProps> = ({ isEditing = false }) 
   return (
     <form onSubmit={handleFormSubmit}>
       <label>Choose Categories</label>
-      <CategorySelector
+      <ListSelector
         list={InvesmentsCategories}
-        setCategories={setCategories}
-        initialCategories={categories}
+        setList={setCategories}
+        initialList={categories}
       />
       <label>Investment range</label>
-      <InvestmentRangeSelector setInvestmentRange={setInvestmentRange} initialRange={investmentRange} />
+      <GenericSelector
+        options={InvestmentRange}
+        setSelectedValue={setInvestmentRange}
+        initialValue={investmentRange}
+      />
       <label>Country of companies</label>
-      <select
-        className="select"
-        value={preferenceCountry}
-        onChange={(e) => setPreferenceCountry(e.target.value)}
-      >
-        <option value="Israel">Israel</option>
-        <option value="Other">Other</option>
-      </select>
+      <GenericSelector
+        options={countries}
+        setSelectedValue={setPreferenceCountry}
+        initialValue={preferenceCountry}
+      />
+
       <label>Investing in already public companies?</label>
-      <YesNoSelector setYesNo={setInvestInPublicCompanies} initialValue={investInPublicCompanies} />
+      <YesNoSelector
+        setYesNo={setInvestInPublicCompanies}
+        initialValue={investInPublicCompanies}
+      />
       {loading ? (
         <ClipLoader color="#39958c" loading={loading} size={50} />
       ) : (
-        <button type="submit">{isEditing ? 'Save Changes' : "Let's Start!"}</button>
+        <button type="submit">
+          {isEditing ? 'Save Changes' : "Let's Start!"}
+        </button>
       )}
     </form>
   );

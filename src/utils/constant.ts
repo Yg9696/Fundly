@@ -1,5 +1,4 @@
 import Company from '../models/Company';
-
 import img1 from '../assets/images/company1.png';
 import img2 from '../assets/images/company2.png';
 import img3 from '../assets/images/company3.png';
@@ -14,7 +13,11 @@ export const InvesmentsCategories: string[] = [
   'Food',
   'Finance',
   'Electric Cars',
+  'Water',
 ];
+
+export const InvestmentRange = ['0-100k', '100k-500k', '500k-1M', '1M+'];
+export const countries = ['Israel', 'Others'];
 
 export const companies: Company[] = [
   new Company(

@@ -28,7 +28,6 @@
     "react-toastify": "^10.0.5",
     "web-vitals": "^2.1.4"
   },
-  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -54,14 +53,17 @@
     ]
   },
   "jest": {
-  "reporters": [
-    "default",
-    ["jest-junit", {
-      "outputDirectory": "test-reports",
-      "outputName": "results.xml"
-    }]
-  ]
-},
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-reports",
+          "outputName": "results.xml"
+        }
+      ]
+    ]
+  },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^10.0.0",

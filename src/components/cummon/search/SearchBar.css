@@ -8,18 +8,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
   border: 1px solid var(--primary-color);
   border-radius: 12px;
-  width: 100%; /* Ensure it uses the full width available */
+  width: 100%;
+
   max-width: 450px;
-  margin: 0 auto; /* Center the search bar */
 }
 
 .search-bar__input {
-  flex: 1;
   border-radius: 10px;
-  height: 40px; /* Adjusted height for better look */
   padding: 5px;
   border: none;
   outline: none;
@@ -28,9 +25,11 @@
 
 .search-bar__icon {
   position: absolute;
-  right: 0px; /* Position the icon on the right side */
+  right: 0px;
+  top: 0;
+  bottom: 0;
   width: 50px; /* Adjust size as needed */
-  height: 50px; /* Adjust size as needed */
+  height: 55px; /* Adjust size as needed */
   border-radius: 8px; /* Make it circular */
   display: flex;
   justify-content: center;

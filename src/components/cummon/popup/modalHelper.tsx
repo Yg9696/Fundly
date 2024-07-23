@@ -37,30 +37,6 @@ const renderSignUpForm = (
   return null;
 };
 
-const renderProfile = (userType: string) => {
-  if (userType === 'Investor') {
-    return <Profile />;
-  }
-
-  if (userType === 'Company') {
-    return <h1>Company Profile</h1>;
-  }
-
-  return null;
-};
-
-const renderNotifications = (userType: string) => {
-  if (userType === 'Investor') {
-    return <h1>Investor Notifications</h1>;
-  }
-
-  if (userType === 'Company') {
-    return <h1>Company Notifications</h1>;
-  }
-
-  return null;
-};
-
 // function for know the contetnt of the pop up (ligin | sign Up As Invstor | Company)
 // based on the user type and the step of the sign up
 
@@ -75,11 +51,6 @@ export const renderForm = ({
       return renderLoginForm();
     case 'Sign Up As':
       return renderSignUpForm(userType, step, setStep);
-    case 'Profile':
-      return renderProfile(userType);
-    case 'Notifications':
-      return renderNotifications(userType);
-
     default:
       return null;
   }
@@ -93,7 +64,7 @@ export const getTitle = (modalType: string, userType: string, step: number) => {
   return modalType;
 };
 
-// fucntion for sign up button (Company | Investor)
+// fucntion for sign up buttons (Company | Investor)
 export const renderSignUpAsButtons = (
   userType: string,
   setUserType: (type: string) => void

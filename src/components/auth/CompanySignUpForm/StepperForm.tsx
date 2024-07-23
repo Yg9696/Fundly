@@ -8,6 +8,8 @@ const primaryColor = '#39958c';
 const secondaryColor = '#7fcbc4';
 const softColor = '#D0EBEA';
 
+const steps = ['Info', 'Rais', 'Docs'];
+
 // custome them for stepper
 const theme = createTheme({
   palette: {
@@ -52,8 +54,6 @@ const theme = createTheme({
   },
 });
 
-const steps = ['Info', 'Rais', 'Docs'];
-
 interface StepContentProps {
   step: number;
 }
@@ -87,7 +87,7 @@ const StepperForm = () => {
   const saveDataInDb = () => {
     setLoading(true); //
     //TODO : call to SaveUserToDb from services.ts
-    
+
     // finish to save the user in db
     setLoading(false);
     // close the pop up

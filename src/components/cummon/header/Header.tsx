@@ -11,10 +11,11 @@ import { useModal } from '../../../context/popupContext';
 import { logoutUser } from '../../../services/authService';
 import { RoutePath } from '../../../utils/enums';
 import Modal from '../popup/modal';
+import LoginForm from '../../auth/LoginForm';
 
 const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, setUser } = useUser();
-  const { isModalOpen, openModal } = useModal(); // control on pop up
+  const { isModalOpen, openModal, modalType, setModalType } = useModal(); // control on pop up
   const nagivate = useNavigate();
 
   console.log('Heder rendered');
@@ -29,7 +30,6 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   };
   // check if user is sign in and show spetsific header for aim
   const renderHeaderButtons = () => {
-    // when user not login yet
     if (!user) {
       return (
         <>
@@ -39,6 +39,7 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           >
             Sign-Up
           </button>
+
           <button
             className="header__button header_button--border"
             onClick={() => openModal('Login')}
@@ -72,7 +73,7 @@ const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <img src="path/to/logo.png" alt="Logo" />
         </div>
         <div className="header__buttons">{renderHeaderButtons()}</div>
-        {isModalOpen && <Modal />}
+        {isModalOpen && <Modal children={undefined} />}
       </header>
       {children}
     </>
