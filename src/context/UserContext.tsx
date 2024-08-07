@@ -43,10 +43,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     };
   }, [user]);
 
-  useEffect(() => {
-    console.log("user:", user);
-  }, [user]);
-
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}

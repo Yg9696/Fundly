@@ -1,13 +1,11 @@
-// src/components/SignUpForm.tsx
-import React, { useState, useEffect } from 'react';
-import User, { UserType } from '../../models/User';
-import { useUser } from '../../context/UserContext';
-import { registerUser } from '../../services/authService';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { useAppStatus } from '../../context/AppStatusContext';
-import { handleFirebaseError } from '../../services/FirebaseErrorService';
-import { FirebaseError } from 'firebase/app';
-
+import React, { useState } from "react";
+import User, { UserType } from "../../models/User";
+import { useUser } from "../../context/UserContext";
+import { registerUser } from "../../services/authService";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useAppStatus } from "../../context/AppStatusContext";
+import { handleFirebaseError } from "../../services/FirebaseErrorService";
+import { FirebaseError } from "firebase/app";
 
 interface SignUpFormProps {
   userType: UserType;
@@ -18,29 +16,29 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ userType, moveStep }) => {
   const { setUser } = useUser();
   const { loading, setLoading, error, setError } = useAppStatus();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       setLoading(true);
-      // register user and get his credentinal
+      // register user and get his credential
       const userCredential = await registerUser(email, password, name);
-      //take the uid that firebase create for the user
+      // take the uid that firebase creates for the user
       const { uid } = userCredential.user;
-      // and asign the uuid in the new user
+      // assign the uuid in the new user
       const newUser = new User(uid, name, email, userType);
-      //set user locall
+      // set user locally
       setUser(newUser);
 
       setLoading(false);
-      ////move to step 2
+      // move to step 2
       moveStep();
     } catch (error: any) {
       setError(handleFirebaseError(error as FirebaseError));
-      console.error('Error signing up: ', error);
+      console.error("Error signing up: ", error);
       setLoading(false);
     } finally {
       setLoading(false);
@@ -49,24 +47,27 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ userType, moveStep }) => {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <label>{userType} Name</label>
+      <label htmlFor="name">{userType} Name</label>
       <input
+        id="name"
         required
         type="text"
         name="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <label>Email</label>
+      <label htmlFor="email">Email</label>
       <input
+        id="email"
         required
         type="email"
         name="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <label>Password</label>
+      <label htmlFor="password">Password</label>
       <input
+        id="password"
         required
         type="password"
         name="password"
