@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/fundly/static/css/main.2d358269.css",
+    "main.js": "/fundly/static/js/main.751a4ad6.js",
+    "static/js/453.f247fcd2.chunk.js": "/fundly/static/js/453.f247fcd2.chunk.js",
+    "static/media/company1.png": "/fundly/static/media/company1.d7f4c594d30282f5882b.png",
+    "static/media/analytic_image.png": "/fundly/static/media/analytic_image.1f7e62592e5fc38a925c.png",
+    "static/media/logo1.png": "/fundly/static/media/logo1.6f27a2caa71df683863c.png",
+    "static/media/no_data.png": "/fundly/static/media/no_data.518c4e88f8a77407123d.png",
+    "index.html": "/fundly/index.html",
+    "main.2d358269.css.map": "/fundly/static/css/main.2d358269.css.map",
+    "main.751a4ad6.js.map": "/fundly/static/js/main.751a4ad6.js.map",
+    "453.f247fcd2.chunk.js.map": "/fundly/static/js/453.f247fcd2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d358269.css",
+    "static/js/main.751a4ad6.js"
+  ]
+}
