@@ -109,36 +109,37 @@
     font-size: 16px;
   }
 }
-
 @media screen and (max-width: 480px) {
   .header {
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row; /* שינוי מ-column ל-row */
+    justify-content: space-between; /* מרווח בין הלוגו לכפתורים */
+    align-items: center;
     padding: 10px;
   }
 
   .header__logo {
-    margin-bottom: 10px;
-    text-align: center;
+    margin-bottom: 0; /* הסרת המרווח מתחת ללוגו */
   }
 
   .header__buttons {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row; /* שמירה על סידור אופקי */
+    gap: 5px; /* הקטנת המרווח בין הכפתורים */
   }
 
   .header__button {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding: 0;
+    width: auto; /* אפשר לכפתורים להתרחב לפי התוכן */
+    height: auto;
+    border-radius: 5px; /* החזרת הפינות המעוגלות */
+    padding: 5px 10px; /* הוספת ריפוד פנימי */
   }
+
   .button-text {
-    display: none;
+    display: none; /* המשך להסתיר את הטקסט */
   }
+
   .button-icon {
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px; /* הקטנת גודל האייקון מעט */
   }
 
   .header_button--fill,
