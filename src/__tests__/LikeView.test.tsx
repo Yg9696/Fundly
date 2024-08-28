@@ -10,7 +10,7 @@ jest.mock("react-router-dom", () => ({
 }));
 
 // Mock NoData, Button, and InvestmentList components
-jest.mock("../components/cummon/NoData", () => (props: any) => (
+jest.mock("../components/cummon/no-data/NoData", () => (props: any) => (
   <div data-testid="no-data">{props.messeage}</div>
 ));
 jest.mock("../components/cummon/Button", () => (props: any) => (
