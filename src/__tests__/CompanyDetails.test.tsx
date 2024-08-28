@@ -15,9 +15,9 @@ jest.mock(
 );
 
 jest.mock(
-  "../components/company/company-profile/companyPresentation/companyContact/CompanyContact",
+  "../components/company/company-profile/companyPresentation/contact/Contact",
   () => ({
-    CompanyContact: jest.fn(() => <div data-testid="mock-company-contact" />),
+    Contact: jest.fn(() => <div data-testid="mock-company-contact" />),
   })
 );
 
@@ -88,9 +88,9 @@ describe("CompanyDetails", () => {
         .CompanyBasicInfo
     ).toHaveBeenCalledWith({ company: mockCompany }, {});
     expect(
-      require("../components/company/company-profile/companyPresentation/companyContact/CompanyContact")
-        .CompanyContact
-    ).toHaveBeenCalledWith({ companyId: mockCompany.uid }, {});
+      require("../components/company/company-profile/companyPresentation/contact/Contact")
+        .Contact
+    ).toHaveBeenCalledWith({ receiver: mockCompany }, {});
   });
 
   //Unit test
@@ -157,8 +157,8 @@ describe("CompanyDetails", () => {
         .CompanyBasicInfo
     ).toHaveBeenCalledWith({ company: updatedCompany }, {});
     expect(
-      require("../components/company/company-profile/companyPresentation/companyContact/CompanyContact")
-        .CompanyContact
-    ).toHaveBeenCalledWith({ companyId: updatedCompany.uid }, {});
+      require("../components/company/company-profile/companyPresentation/contact/Contact")
+        .Contact
+    ).toHaveBeenCalledWith({ receiver: updatedCompany }, {});
   });
 });
