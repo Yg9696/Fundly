@@ -1,8 +1,8 @@
 import Company from '../../../models/Company';
 import { CompanyBasicInfo } from './companyPresentation/companyBasicInfo/CompanyBasicInfo';
-import { Contact } from './contact/Contact';
 import { CompanyDocs } from './companyPresentation/companyDocs/CompanyDocs';
 import './CompanyDetails.css';
+import { Contact } from './contact/Contact';
 
 interface props {
   company: Company;
