@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useUsersManagement } from '../../../../../pages/admin/hooks/useUsersManagement';
+import { useUsersManagement } from '../../../../pages/admin/hooks/useUsersManagement';
 import './Contact.css';
-import User from '../../../../../models/User';
+import User from '../../../../models/User';
 
 interface props {
   receiver: User;

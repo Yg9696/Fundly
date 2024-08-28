@@ -1,6 +1,6 @@
 // ReplyForm.tsx
 import React from 'react';
-import { Contact } from '../../company/company-profile/companyPresentation/contact/Contact';
+import { Contact } from '../../company/company-profile/contact/Contact';
 import User from '../../../models/User';
 
 interface ReplyFormProps {
